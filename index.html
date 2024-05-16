@@ -14,10 +14,15 @@
             margin: auto;
             overflow: hidden;
         }
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-bottom: 20px;
+            min-width: 1500px; /* Ensure the table stretches enough for scrolling */
         }
         table, th, td {
             border: 1px solid #ddd;
@@ -61,83 +66,85 @@
 <body>
     <div class="container">
         <h1>FW Rating Calculation</h1>
-        <table id="inputTable">
-            <thead>
-                <tr>
-                    <th>Vehicle ID</th>
-                    <th>Vehicle Name</th>
-                    <th>Make</th>
-                    <th>Model</th>
-                    <th>Registration Year</th>
-                    <th>Policy Effective Year</th>
-                    <th>OIC Code</th>
-                    <th>Product</th>
-                    <th>OD</th>
-                    <th>FT</th>
-                    <th>TPBI per Person</th>
-                    <th>TPBI per Accident</th>
-                    <th>TPPD per Accident</th>
-                    <th>PA for Driver</th>
-                    <th>PA for Passenger</th>
-                    <th>Medical Coverage</th>
-                    <th>Bailbond</th>
-                    <th>Discount Fleet</th>
-                    <th>Discount NCB</th>
-                    <th>Discount Direct</th>
-                    <th>Discount CCTV</th>
-                    <th>Discount Application</th>
-                    <th>Preferred Premium</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="text" id="vehicleId"></td>
-                    <td><input type="text" id="vehicleName"></td>
-                    <td><input type="text" id="make"></td>
-                    <td><input type="text" id="model"></td>
-                    <td><input type="number" id="registrationYear"></td>
-                    <td><input type="number" id="policyEffectiveYear"></td>
-                    <td>
-                        <select id="oicCode">
-                            <option value="110">110</option>
-                            <option value="110E">110E</option>
-                            <option value="120">120</option>
-                            <option value="120E">120E</option>
-                            <option value="210">210</option>
-                            <option value="210E">210E</option>
-                            <option value="320">320</option>
-                            <option value="320E">320E</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select id="product">
-                            <option value="AV1">AV1</option>
-                            <option value="AV2+">AV2+</option>
-                            <option value="AV3+">AV3+</option>
-                            <option value="AV2">AV2</option>
-                            <option value="AV3">AV3</option>
-                        </select>
-                    </td>
-                    <td><input type="number" id="od"></td>
-                    <td><input type="number" id="ft"></td>
-                    <td><input type="number" id="tpbiPerson"></td>
-                    <td><input type="number" id="tpbiAccident"></td>
-                    <td><input type="number" id="tppdAccident"></td>
-                    <td><input type="number" id="paDriver"></td>
-                    <td><input type="number" id="paPassenger"></td>
-                    <td><input type="number" id="medicalCoverage"></td>
-                    <td><input type="number" id="bailbond"></td>
-                    <td><input type="number" id="discountFleet" value="0"></td>
-                    <td><input type="number" id="discountNcb" value="0"></td>
-                    <td><input type="number" id="discountDirect" value="0"></td>
-                    <td><input type="number" id="discountCctv" value="0"></td>
-                    <td><input type="number" id="discountApp" value="0"></td>
-                    <td><input type="number" id="preferredPremium"></td>
-                    <td><input type="button" value="Calculate" onclick="calculate()"></td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-container">
+            <table id="inputTable">
+                <thead>
+                    <tr>
+                        <th>Vehicle ID</th>
+                        <th>Vehicle Name</th>
+                        <th>Make</th>
+                        <th>Model</th>
+                        <th>Registration Year</th>
+                        <th>Policy Effective Year</th>
+                        <th>OIC Code</th>
+                        <th>Product</th>
+                        <th>OD</th>
+                        <th>FT</th>
+                        <th>TPBI per Person</th>
+                        <th>TPBI per Accident</th>
+                        <th>TPPD per Accident</th>
+                        <th>PA for Driver</th>
+                        <th>PA for Passenger</th>
+                        <th>Medical Coverage</th>
+                        <th>Bailbond</th>
+                        <th>Discount Fleet</th>
+                        <th>Discount NCB</th>
+                        <th>Discount Direct</th>
+                        <th>Discount CCTV</th>
+                        <th>Discount Application</th>
+                        <th>Preferred Premium</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" id="vehicleId"></td>
+                        <td><input type="text" id="vehicleName"></td>
+                        <td><input type="text" id="make"></td>
+                        <td><input type="text" id="model"></td>
+                        <td><input type="number" id="registrationYear"></td>
+                        <td><input type="number" id="policyEffectiveYear"></td>
+                        <td>
+                            <select id="oicCode">
+                                <option value="110">110</option>
+                                <option value="110E">110E</option>
+                                <option value="120">120</option>
+                                <option value="120E">120E</option>
+                                <option value="210">210</option>
+                                <option value="210E">210E</option>
+                                <option value="320">320</option>
+                                <option value="320E">320E</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="product">
+                                <option value="AV1">AV1</option>
+                                <option value="AV2+">AV2+</option>
+                                <option value="AV3+">AV3+</option>
+                                <option value="AV2">AV2</option>
+                                <option value="AV3">AV3</option>
+                            </select>
+                        </td>
+                        <td><input type="number" id="od"></td>
+                        <td><input type="number" id="ft"></td>
+                        <td><input type="number" id="tpbiPerson"></td>
+                        <td><input type="number" id="tpbiAccident"></td>
+                        <td><input type="number" id="tppdAccident"></td>
+                        <td><input type="number" id="paDriver"></td>
+                        <td><input type="number" id="paPassenger"></td>
+                        <td><input type="number" id="medicalCoverage"></td>
+                        <td><input type="number" id="bailbond"></td>
+                        <td><input type="number" id="discountFleet" value="0"></td>
+                        <td><input type="number" id="discountNcb" value="0"></td>
+                        <td><input type="number" id="discountDirect" value="0"></td>
+                        <td><input type="number" id="discountCctv" value="0"></td>
+                        <td><input type="number" id="discountApp" value="0"></td>
+                        <td><input type="number" id="preferredPremium"></td>
+                        <td><input type="button" value="Calculate" onclick="calculate()"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         <h2>Result</h2>
         <pre id="result"></pre>
@@ -145,39 +152,41 @@
         <input type="button" value="Add Record" onclick="addRecord()">
         
         <h2>Records</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Vehicle ID</th>
-                    <th>Vehicle Name</th>
-                    <th>Make</th>
-                    <th>Model</th>
-                    <th>Registration Year</th>
-                    <th>Policy Effective Year</th>
-                    <th>OIC Code</th>
-                    <th>Product</th>
-                    <th>OD</th>
-                    <th>FT</th>
-                    <th>TPBI per Person</th>
-                    <th>TPBI per Accident</th>
-                    <th>TPPD per Accident</th>
-                    <th>PA for Driver</th>
-                    <th>PA for Passenger</th>
-                    <th>Medical Coverage</th>
-                    <th>Bailbond</th>
-                    <th>Discount Fleet</th>
-                    <th>Discount NCB</th>
-                    <th>Discount Direct</th>
-                    <th>Discount CCTV</th>
-                    <th>Discount Application</th>
-                    <th>Preferred Premium</th>
-                    <th>Calculated Result</th>
-                </tr>
-            </thead>
-            <tbody id="recordTable">
-                <!-- Records will be added here -->
-            </tbody>
-        </table>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Vehicle ID</th>
+                        <th>Vehicle Name</th>
+                        <th>Make</th>
+                        <th>Model</th>
+                        <th>Registration Year</th>
+                        <th>Policy Effective Year</th>
+                        <th>OIC Code</th>
+                        <th>Product</th>
+                        <th>OD</th>
+                        <th>FT</th>
+                        <th>TPBI per Person</th>
+                        <th>TPBI per Accident</th>
+                        <th>TPPD per Accident</th>
+                        <th>PA for Driver</th>
+                        <th>PA for Passenger</th>
+                        <th>Medical Coverage</th>
+                        <th>Bailbond</th>
+                        <th>Discount Fleet</th>
+                        <th>Discount NCB</th>
+                        <th>Discount Direct</th>
+                        <th>Discount CCTV</th>
+                        <th>Discount Application</th>
+                        <th>Preferred Premium</th>
+                        <th>Calculated Result</th>
+                    </tr>
+                </thead>
+                <tbody id="recordTable">
+                    <!-- Records will be added here -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script>
