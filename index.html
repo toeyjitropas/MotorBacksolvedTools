@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FW Rating Calculation</title>
+</head>
+<body>
+    <h1>FW Rating Calculation</h1>
+    <form id="calcForm">
+        <label for="targetPremium">Target Premium:</label>
+        <input type="number" id="targetPremium" name="targetPremium"><br><br>
+
+        <label for="rate">Rate:</label>
+        <input type="number" id="rate" name="rate"><br><br>
+
+        <label for="od_dd">OD DD:</label>
+        <input type="number" id="od_dd" name="od_dd"><br><br>
+
+        <label for="tp_dd">TP DD:</label>
+        <input type="number" id="tp_dd" name="tp_dd"><br><br>
+
+        <label for="baseAv5">Base AV5:</label>
+        <input type="number" id="baseAv5" name="baseAv5"><br><br>
+
+        <label for="pa_driv_max_rate">PA Driver Max Rate:</label>
+        <input type="number" id="pa_driv_max_rate" name="pa_driv_max_rate"><br><br>
+
+        <label for="pa_pasg_max_rate">PA Passenger Max Rate:</label>
+        <input type="number" id="pa_pasg_max_rate" name="pa_pasg_max_rate"><br><br>
+
+        <label for="bb_max_rate">BB Max Rate:</label>
+        <input type="number" id="bb_max_rate" name="bb_max_rate"><br><br>
+
+        <label for="med_max_rate">Med Max Rate:</label>
+        <input type="number" id="med_max_rate" name="med_max_rate"><br><br>
+
+        <label for="pa_si">PA SI:</label>
+        <input type="number" id="pa_si" name="pa_si"><br><br>
+
+        <label for="me_si">ME SI:</label>
+        <input type="number" id="me_si" name="me_si"><br><br>
+
+        <label for="base_min">Base Min:</label>
+        <input type="number" id="base_min" name="base_min"><br><br>
+
+        <label for="base_max">Base Max:</label>
+        <input type="number" id="base_max" name="base_max"><br><br>
+
+        <label for="discount_fleet">Discount Fleet:</label>
+        <input type="number" id="discount_fleet" name="discount_fleet" value="0"><br><br>
+
+        <label for="discount_ncb">Discount NCB:</label>
+        <input type="number" id="discount_ncb" name="discount_ncb" value="0"><br><br>
+
+        <label for="discount_cctv">Discount CCTV:</label>
+        <input type="number" id="discount_cctv" name="discount_cctv" value="0"><br><br>
+
+        <label for="discount_app">Discount App:</label>
+        <input type="number" id="discount_app" name="discount_app" value="0"><br><br>
+
+        <label for="discount_direct">Discount Direct:</label>
+        <input type="number" id="discount_direct" name="discount_direct" value="0"><br><br>
+
+        <label for="coverage_day">Coverage Day:</label>
+        <input type="number" id="coverage_day" name="coverage_day" value="365"><br><br>
+
+        <input type="button" value="Calculate" onclick="calculate()">
+    </form>
+
+    <h2>Result</h2>
+    <pre id="result"></pre>
+
+    <script src="calculation.js"></script>
+    <script>
+        function calculate() {
+            let form = document.getElementById('calcForm');
+            let targetPremium = parseFloat(form.targetPremium.value);
+            let rate = parseFloat(form.rate.value);
+            let od_dd = parseFloat(form.od_dd.value);
+            let tp_dd = parseFloat(form.tp_dd.value);
+            let baseAv5 = parseFloat(form.baseAv5.value);
+            let pa_driv_max_rate = parseFloat(form.pa_driv_max_rate.value);
+            let pa_pasg_max_rate = parseFloat(form.pa_pasg_max_rate.value);
+            let bb_max_rate = parseFloat(form.bb_max_rate.value);
+            let med_max_rate = parseFloat(form.med_max_rate.value);
+            let pa_si = parseFloat(form.pa_si.value);
+            let me_si = parseFloat(form.me_si.value);
+            let base_min = parseFloat(form.base_min.value);
+            let base_max = parseFloat(form.base_max.value);
+            let discount_fleet = parseFloat(form.discount_fleet.value);
+            let discount_ncb = parseFloat(form.discount_ncb.value);
+            let discount_cctv = parseFloat(form.discount_cctv.value);
+            let discount_app = parseFloat(form.discount_app.value);
+            let discount_direct = parseFloat(form.discount_direct.value);
+            let coverage_day = parseFloat(form.coverage_day.value);
+
+            let result = backSolve(targetPremium, rate, od_dd, tp_dd, baseAv5, pa_driv_max_rate, pa_pasg_max_rate, bb_max_rate, med_max_rate, pa_si, me_si, base_min, base_max, discount_fleet, discount_ncb, discount_cctv, discount_app, discount_direct, coverage_day);
+            document.getElementById('result').textContent = JSON.stringify(result, null, 2);
+        }
+    </script>
+</body>
+</html>
