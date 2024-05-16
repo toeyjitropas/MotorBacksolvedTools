@@ -10,39 +10,35 @@
             padding: 0;
         }
         .container {
-            width: 80%;
+            width: 90%;
             margin: auto;
             overflow: hidden;
         }
-        #calcForm {
-            background: #fff;
-            padding: 20px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
             margin-top: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        #calcForm h1 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
+        table, th, td {
+            border: 1px solid #ddd;
         }
-        label {
-            display: block;
-            margin-top: 10px;
-            color: #333;
+        th, td {
+            padding: 12px;
+            text-align: left;
         }
-        input[type="number"], input[type="text"] {
-            width: calc(100% - 24px);
-            padding: 10px;
-            margin-top: 5px;
+        th {
+            background-color: #f2f2f2;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
         input[type="button"] {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin-top: 20px;
+            padding: 10px 20px;
+            margin-top: 10px;
             background: #28a745;
             color: #fff;
             border: none;
@@ -60,114 +56,122 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 12px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <form id="calcForm">
-            <h1>FW Rating Calculation</h1>
-            <label for="targetPremium">Target Premium:</label>
-            <input type="number" id="targetPremium" name="targetPremium"><br>
-
-            <label for="rate">Rate:</label>
-            <input type="number" id="rate" name="rate"><br>
-
-            <label for="od_dd">OD DD:</label>
-            <input type="number" id="od_dd" name="od_dd"><br>
-
-            <label for="tp_dd">TP DD:</label>
-            <input type="number" id="tp_dd" name="tp_dd"><br>
-
-            <label for="baseAv5">Base AV5:</label>
-            <input type="number" id="baseAv5" name="baseAv5"><br>
-
-            <label for="pa_driv_max_rate">PA Driver Max Rate:</label>
-            <input type="number" id="pa_driv_max_rate" name="pa_driv_max_rate"><br>
-
-            <label for="pa_pasg_max_rate">PA Passenger Max Rate:</label>
-            <input type="number" id="pa_pasg_max_rate" name="pa_pasg_max_rate"><br>
-
-            <label for="bb_max_rate">BB Max Rate:</label>
-            <input type="number" id="bb_max_rate" name="bb_max_rate"><br>
-
-            <label for="med_max_rate">Med Max Rate:</label>
-            <input type="number" id="med_max_rate" name="med_max_rate"><br>
-
-            <label for="pa_si">PA SI:</label>
-            <input type="number" id="pa_si" name="pa_si"><br>
-
-            <label for="me_si">ME SI:</label>
-            <input type="number" id="me_si" name="me_si"><br>
-
-            <label for="base_min">Base Min:</label>
-            <input type="number" id="base_min" name="base_min"><br>
-
-            <label for="base_max">Base Max:</label>
-            <input type="number" id="base_max" name="base_max"><br>
-
-            <label for="discount_fleet">Discount Fleet:</label>
-            <input type="number" id="discount_fleet" name="discount_fleet" value="0"><br>
-
-            <label for="discount_ncb">Discount NCB:</label>
-            <input type="number" id="discount_ncb" name="discount_ncb" value="0"><br>
-
-            <label for="discount_cctv">Discount CCTV:</label>
-            <input type="number" id="discount_cctv" name="discount_cctv" value="0"><br>
-
-            <label for="discount_app">Discount App:</label>
-            <input type="number" id="discount_app" name="discount_app" value="0"><br>
-
-            <label for="discount_direct">Discount Direct:</label>
-            <input type="number" id="discount_direct" name="discount_direct" value="0"><br>
-
-            <label for="coverage_day">Coverage Day:</label>
-            <input type="number" id="coverage_day" name="coverage_day" value="365"><br>
-
-            <input type="button" value="Calculate" onclick="calculate()">
-        </form>
+        <h1>FW Rating Calculation</h1>
+        <table id="inputTable">
+            <thead>
+                <tr>
+                    <th>Vehicle ID</th>
+                    <th>Vehicle Name</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Registration Year</th>
+                    <th>Policy Effective Year</th>
+                    <th>OIC Code</th>
+                    <th>Product</th>
+                    <th>OD</th>
+                    <th>FT</th>
+                    <th>TPBI per Person</th>
+                    <th>TPBI per Accident</th>
+                    <th>TPPD per Accident</th>
+                    <th>PA for Driver</th>
+                    <th>PA for Passenger</th>
+                    <th>Medical Coverage</th>
+                    <th>Bailbond</th>
+                    <th>Discount Fleet</th>
+                    <th>Discount NCB</th>
+                    <th>Discount Direct</th>
+                    <th>Discount CCTV</th>
+                    <th>Discount Application</th>
+                    <th>Preferred Premium</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" id="vehicleId"></td>
+                    <td><input type="text" id="vehicleName"></td>
+                    <td><input type="text" id="make"></td>
+                    <td><input type="text" id="model"></td>
+                    <td><input type="number" id="registrationYear"></td>
+                    <td><input type="number" id="policyEffectiveYear"></td>
+                    <td>
+                        <select id="oicCode">
+                            <option value="110">110</option>
+                            <option value="110E">110E</option>
+                            <option value="120">120</option>
+                            <option value="120E">120E</option>
+                            <option value="210">210</option>
+                            <option value="210E">210E</option>
+                            <option value="320">320</option>
+                            <option value="320E">320E</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select id="product">
+                            <option value="AV1">AV1</option>
+                            <option value="AV2+">AV2+</option>
+                            <option value="AV3+">AV3+</option>
+                            <option value="AV2">AV2</option>
+                            <option value="AV3">AV3</option>
+                        </select>
+                    </td>
+                    <td><input type="number" id="od"></td>
+                    <td><input type="number" id="ft"></td>
+                    <td><input type="number" id="tpbiPerson"></td>
+                    <td><input type="number" id="tpbiAccident"></td>
+                    <td><input type="number" id="tppdAccident"></td>
+                    <td><input type="number" id="paDriver"></td>
+                    <td><input type="number" id="paPassenger"></td>
+                    <td><input type="number" id="medicalCoverage"></td>
+                    <td><input type="number" id="bailbond"></td>
+                    <td><input type="number" id="discountFleet" value="0"></td>
+                    <td><input type="number" id="discountNcb" value="0"></td>
+                    <td><input type="number" id="discountDirect" value="0"></td>
+                    <td><input type="number" id="discountCctv" value="0"></td>
+                    <td><input type="number" id="discountApp" value="0"></td>
+                    <td><input type="number" id="preferredPremium"></td>
+                    <td><input type="button" value="Calculate" onclick="calculate()"></td>
+                </tr>
+            </tbody>
+        </table>
 
         <h2>Result</h2>
         <pre id="result"></pre>
 
+        <input type="button" value="Add Record" onclick="addRecord()">
+        
         <h2>Records</h2>
         <table>
             <thead>
                 <tr>
-                    <th>Target Premium</th>
-                    <th>Rate</th>
-                    <th>OD DD</th>
-                    <th>TP DD</th>
-                    <th>Base AV5</th>
-                    <th>PA Driver Max Rate</th>
-                    <th>PA Passenger Max Rate</th>
-                    <th>BB Max Rate</th>
-                    <th>Med Max Rate</th>
-                    <th>PA SI</th>
-                    <th>ME SI</th>
-                    <th>Base Min</th>
-                    <th>Base Max</th>
+                    <th>Vehicle ID</th>
+                    <th>Vehicle Name</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Registration Year</th>
+                    <th>Policy Effective Year</th>
+                    <th>OIC Code</th>
+                    <th>Product</th>
+                    <th>OD</th>
+                    <th>FT</th>
+                    <th>TPBI per Person</th>
+                    <th>TPBI per Accident</th>
+                    <th>TPPD per Accident</th>
+                    <th>PA for Driver</th>
+                    <th>PA for Passenger</th>
+                    <th>Medical Coverage</th>
+                    <th>Bailbond</th>
                     <th>Discount Fleet</th>
                     <th>Discount NCB</th>
-                    <th>Discount CCTV</th>
-                    <th>Discount App</th>
                     <th>Discount Direct</th>
-                    <th>Coverage Day</th>
-                    <th>Result</th>
+                    <th>Discount CCTV</th>
+                    <th>Discount Application</th>
+                    <th>Preferred Premium</th>
+                    <th>Calculated Result</th>
                 </tr>
             </thead>
             <tbody id="recordTable">
@@ -177,60 +181,112 @@
     </div>
 
     <script>
-        function calculate() {
-            let form = document.getElementById('calcForm');
-            let targetPremium = parseFloat(form.targetPremium.value);
-            let rate = parseFloat(form.rate.value);
-            let od_dd = parseFloat(form.od_dd.value);
-            let tp_dd = parseFloat(form.tp_dd.value);
-            let baseAv5 = parseFloat(form.baseAv5.value);
-            let pa_driv_max_rate = parseFloat(form.pa_driv_max_rate.value);
-            let pa_pasg_max_rate = parseFloat(form.pa_pasg_max_rate.value);
-            let bb_max_rate = parseFloat(form.bb_max_rate.value);
-            let med_max_rate = parseFloat(form.med_max_rate.value);
-            let pa_si = parseFloat(form.pa_si.value);
-            let me_si = parseFloat(form.me_si.value);
-            let base_min = parseFloat(form.base_min.value);
-            let base_max = parseFloat(form.base_max.value);
-            let discount_fleet = parseFloat(form.discount_fleet.value);
-            let discount_ncb = parseFloat(form.discount_ncb.value);
-            let discount_cctv = parseFloat(form.discount_cctv.value);
-            let discount_app = parseFloat(form.discount_app.value);
-            let discount_direct = parseFloat(form.discount_direct.value);
-            let coverage_day = parseFloat(form.coverage_day.value);
+        let records = [];
 
-            let result = backSolve(targetPremium, rate, od_dd, tp_dd, baseAv5, pa_driv_max_rate, pa_pasg_max_rate, bb_max_rate, med_max_rate, pa_si, me_si, base_min, base_max, discount_fleet, discount_ncb, discount_cctv, discount_app, discount_direct, coverage_day);
+        function calculate() {
+            let form = document.querySelector('tbody tr');
+            let vehicleId = form.querySelector('#vehicleId').value;
+            let vehicleName = form.querySelector('#vehicleName').value;
+            let make = form.querySelector('#make').value;
+            let model = form.querySelector('#model').value;
+            let registrationYear = parseInt(form.querySelector('#registrationYear').value);
+            let policyEffectiveYear = parseInt(form.querySelector('#policyEffectiveYear').value);
+            let oicCode = form.querySelector('#oicCode').value;
+            let product = form.querySelector('#product').value;
+            let od = parseFloat(form.querySelector('#od').value);
+            let ft = parseFloat(form.querySelector('#ft').value);
+            let tpbiPerson = parseFloat(form.querySelector('#tpbiPerson').value);
+            let tpbiAccident = parseFloat(form.querySelector('#tpbiAccident').value);
+            let tppdAccident = parseFloat(form.querySelector('#tppdAccident').value);
+            let paDriver = parseFloat(form.querySelector('#paDriver').value);
+            let paPassenger = parseFloat(form.querySelector('#paPassenger').value);
+            let medicalCoverage = parseFloat(form.querySelector('#medicalCoverage').value);
+            let bailbond = parseFloat(form.querySelector('#bailbond').value);
+            let discountFleet = parseFloat(form.querySelector('#discountFleet').value);
+            let discountNcb = parseFloat(form.querySelector('#discountNcb').value);
+            let discountDirect = parseFloat(form.querySelector('#discountDirect').value);
+            let discountCctv = parseFloat(form.querySelector('#discountCctv').value);
+            let discountApp = parseFloat(form.querySelector('#discountApp').value);
+            let preferredPremium = parseFloat(form.querySelector('#preferredPremium').value);
+
+            let rate = mapToRate(oicCode, vehicleAge(registrationYear, policyEffectiveYear), product, od, ft, tpbiPerson, tpbiAccident, tppdAccident);
+            let pa_driv_max_rate = paDriver * 0.000103222487317189;
+            let pa_pasg_max_rate = paPassenger * 0.0000495259408845098;
+            let med_max_rate = medicalCoverage * 0.0000650958528842174;
+            let bb_max_rate = 1;
+
+            let result = backSolve(preferredPremium, rate, od, ft, pa_driv_max_rate, pa_pasg_max_rate, bb_max_rate, med_max_rate, paDriver, medicalCoverage, paPassenger, bb_max_rate, rate, rate, discountFleet, discountNcb, discountCctv, discountApp, discountDirect, 365);
             document.getElementById('result').textContent = JSON.stringify(result, null, 2);
 
-            addRecord(targetPremium, rate, od_dd, tp_dd, baseAv5, pa_driv_max_rate, pa_pasg_max_rate, bb_max_rate, med_max_rate, pa_si, me_si, base_min, base_max, discount_fleet, discount_ncb, discount_cctv, discount_app, discount_direct, coverage_day, result);
+            records.push({
+                vehicleId,
+                vehicleName,
+                make,
+                model,
+                registrationYear,
+                policyEffectiveYear,
+                oicCode,
+                product,
+                od,
+                ft,
+                tpbiPerson,
+                tpbiAccident,
+                tppdAccident,
+                paDriver,
+                paPassenger,
+                medicalCoverage,
+                bailbond,
+                discountFleet,
+                discountNcb,
+                discountDirect,
+                discountCctv,
+                discountApp,
+                preferredPremium,
+                result
+            });
         }
 
-        function addRecord(targetPremium, rate, od_dd, tp_dd, baseAv5, pa_driv_max_rate, pa_pasg_max_rate, bb_max_rate, med_max_rate, pa_si, me_si, base_min, base_max, discount_fleet, discount_ncb, discount_cctv, discount_app, discount_direct, coverage_day, result) {
+        function addRecord() {
             let recordTable = document.getElementById('recordTable');
-            let newRow = recordTable.insertRow();
-            
-            newRow.innerHTML = `
-                <td>${targetPremium}</td>
-                <td>${rate}</td>
-                <td>${od_dd}</td>
-                <td>${tp_dd}</td>
-                <td>${baseAv5}</td>
-                <td>${pa_driv_max_rate}</td>
-                <td>${pa_pasg_max_rate}</td>
-                <td>${bb_max_rate}</td>
-                <td>${med_max_rate}</td>
-                <td>${pa_si}</td>
-                <td>${me_si}</td>
-                <td>${base_min}</td>
-                <td>${base_max}</td>
-                <td>${discount_fleet}</td>
-                <td>${discount_ncb}</td>
-                <td>${discount_cctv}</td>
-                <td>${discount_app}</td>
-                <td>${discount_direct}</td>
-                <td>${coverage_day}</td>
-                <td>${JSON.stringify(result, null, 2)}</td>
-            `;
+            recordTable.innerHTML = '';
+            records.forEach(record => {
+                let newRow = recordTable.insertRow();
+                newRow.innerHTML = `
+                    <td>${record.vehicleId}</td>
+                    <td>${record.vehicleName}</td>
+                    <td>${record.make}</td>
+                    <td>${record.model}</td>
+                    <td>${record.registrationYear}</td>
+                    <td>${record.policyEffectiveYear}</td>
+                    <td>${record.oicCode}</td>
+                    <td>${record.product}</td>
+                    <td>${record.od}</td>
+                    <td>${record.ft}</td>
+                    <td>${record.tpbiPerson}</td>
+                    <td>${record.tpbiAccident}</td>
+                    <td>${record.tppdAccident}</td>
+                    <td>${record.paDriver}</td>
+                    <td>${record.paPassenger}</td>
+                    <td>${record.medicalCoverage}</td>
+                    <td>${record.bailbond}</td>
+                    <td>${record.discountFleet}</td>
+                    <td>${record.discountNcb}</td>
+                    <td>${record.discountDirect}</td>
+                    <td>${record.discountCctv}</td>
+                    <td>${record.discountApp}</td>
+                    <td>${record.preferredPremium}</td>
+                    <td>${JSON.stringify(record.result, null, 2)}</td>
+                `;
+            });
+        }
+
+        function vehicleAge(registrationYear, policyEffectiveYear) {
+            return policyEffectiveYear - registrationYear;
+        }
+
+        function mapToRate(oicCode, vehicleAge, product, od, ft, tpbiPerson, tpbiAccident, tppdAccident) {
+            // Implement mapping logic based on your rating table
+            return 1; // Dummy value for demonstration purposes
         }
 
         function fw_rating_calculation(base, base_av5, deduct, fleet_dis, ncb_dis, cctv_dis, app_dis, direct_dis, coverage_day) {
