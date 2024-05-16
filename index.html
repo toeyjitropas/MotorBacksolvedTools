@@ -2,74 +2,134 @@
 <html>
 <head>
     <title>FW Rating Calculation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 50%;
+            margin: auto;
+            overflow: hidden;
+        }
+        #calcForm {
+            background: #fff;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #calcForm h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #333;
+        }
+        input[type="number"] {
+            width: calc(100% - 24px);
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        input[type="button"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="button"]:hover {
+            background: #218838;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
-    <h1>FW Rating Calculation</h1>
-    <form id="calcForm">
-        <label for="targetPremium">Target Premium:</label>
-        <input type="number" id="targetPremium" name="targetPremium"><br><br>
+    <div class="container">
+        <form id="calcForm">
+            <h1>FW Rating Calculation</h1>
+            <label for="targetPremium">Target Premium:</label>
+            <input type="number" id="targetPremium" name="targetPremium"><br>
 
-        <label for="rate">Rate:</label>
-        <input type="number" id="rate" name="rate"><br><br>
+            <label for="rate">Rate:</label>
+            <input type="number" id="rate" name="rate"><br>
 
-        <label for="od_dd">OD DD:</label>
-        <input type="number" id="od_dd" name="od_dd"><br><br>
+            <label for="od_dd">OD DD:</label>
+            <input type="number" id="od_dd" name="od_dd"><br>
 
-        <label for="tp_dd">TP DD:</label>
-        <input type="number" id="tp_dd" name="tp_dd"><br><br>
+            <label for="tp_dd">TP DD:</label>
+            <input type="number" id="tp_dd" name="tp_dd"><br>
 
-        <label for="baseAv5">Base AV5:</label>
-        <input type="number" id="baseAv5" name="baseAv5"><br><br>
+            <label for="baseAv5">Base AV5:</label>
+            <input type="number" id="baseAv5" name="baseAv5"><br>
 
-        <label for="pa_driv_max_rate">PA Driver Max Rate:</label>
-        <input type="number" id="pa_driv_max_rate" name="pa_driv_max_rate"><br><br>
+            <label for="pa_driv_max_rate">PA Driver Max Rate:</label>
+            <input type="number" id="pa_driv_max_rate" name="pa_driv_max_rate"><br>
 
-        <label for="pa_pasg_max_rate">PA Passenger Max Rate:</label>
-        <input type="number" id="pa_pasg_max_rate" name="pa_pasg_max_rate"><br><br>
+            <label for="pa_pasg_max_rate">PA Passenger Max Rate:</label>
+            <input type="number" id="pa_pasg_max_rate" name="pa_pasg_max_rate"><br>
 
-        <label for="bb_max_rate">BB Max Rate:</label>
-        <input type="number" id="bb_max_rate" name="bb_max_rate"><br><br>
+            <label for="bb_max_rate">BB Max Rate:</label>
+            <input type="number" id="bb_max_rate" name="bb_max_rate"><br>
 
-        <label for="med_max_rate">Med Max Rate:</label>
-        <input type="number" id="med_max_rate" name="med_max_rate"><br><br>
+            <label for="med_max_rate">Med Max Rate:</label>
+            <input type="number" id="med_max_rate" name="med_max_rate"><br>
 
-        <label for="pa_si">PA SI:</label>
-        <input type="number" id="pa_si" name="pa_si"><br><br>
+            <label for="pa_si">PA SI:</label>
+            <input type="number" id="pa_si" name="pa_si"><br>
 
-        <label for="me_si">ME SI:</label>
-        <input type="number" id="me_si" name="me_si"><br><br>
+            <label for="me_si">ME SI:</label>
+            <input type="number" id="me_si" name="me_si"><br>
 
-        <label for="base_min">Base Min:</label>
-        <input type="number" id="base_min" name="base_min"><br><br>
+            <label for="base_min">Base Min:</label>
+            <input type="number" id="base_min" name="base_min"><br>
 
-        <label for="base_max">Base Max:</label>
-        <input type="number" id="base_max" name="base_max"><br><br>
+            <label for="base_max">Base Max:</label>
+            <input type="number" id="base_max" name="base_max"><br>
 
-        <label for="discount_fleet">Discount Fleet:</label>
-        <input type="number" id="discount_fleet" name="discount_fleet" value="0"><br><br>
+            <label for="discount_fleet">Discount Fleet:</label>
+            <input type="number" id="discount_fleet" name="discount_fleet" value="0"><br>
 
-        <label for="discount_ncb">Discount NCB:</label>
-        <input type="number" id="discount_ncb" name="discount_ncb" value="0"><br><br>
+            <label for="discount_ncb">Discount NCB:</label>
+            <input type="number" id="discount_ncb" name="discount_ncb" value="0"><br>
 
-        <label for="discount_cctv">Discount CCTV:</label>
-        <input type="number" id="discount_cctv" name="discount_cctv" value="0"><br><br>
+            <label for="discount_cctv">Discount CCTV:</label>
+            <input type="number" id="discount_cctv" name="discount_cctv" value="0"><br>
 
-        <label for="discount_app">Discount App:</label>
-        <input type="number" id="discount_app" name="discount_app" value="0"><br><br>
+            <label for="discount_app">Discount App:</label>
+            <input type="number" id="discount_app" name="discount_app" value="0"><br>
 
-        <label for="discount_direct">Discount Direct:</label>
-        <input type="number" id="discount_direct" name="discount_direct" value="0"><br><br>
+            <label for="discount_direct">Discount Direct:</label>
+            <input type="number" id="discount_direct" name="discount_direct" value="0"><br>
 
-        <label for="coverage_day">Coverage Day:</label>
-        <input type="number" id="coverage_day" name="coverage_day" value="365"><br><br>
+            <label for="coverage_day">Coverage Day:</label>
+            <input type="number" id="coverage_day" name="coverage_day" value="365"><br>
 
-        <input type="button" value="Calculate" onclick="calculate()">
-    </form>
+            <input type="button" value="Calculate" onclick="calculate()">
+        </form>
 
-    <h2>Result</h2>
-    <pre id="result"></pre>
+        <h2>Result</h2>
+        <pre id="result"></pre>
+    </div>
 
-    <script src="calculation.js"></script>
     <script>
         function calculate() {
             let form = document.getElementById('calcForm');
@@ -96,6 +156,22 @@
             let result = backSolve(targetPremium, rate, od_dd, tp_dd, baseAv5, pa_driv_max_rate, pa_pasg_max_rate, bb_max_rate, med_max_rate, pa_si, me_si, base_min, base_max, discount_fleet, discount_ncb, discount_cctv, discount_app, discount_direct, coverage_day);
             document.getElementById('result').textContent = JSON.stringify(result, null, 2);
         }
-    </script>
-</body>
-</html>
+
+        function fw_rating_calculation(base, base_av5, deduct, fleet_dis, ncb_dis, cctv_dis, app_dis, direct_dis, coverage_day) {
+            let prem1 = base + deduct;
+            let fleet_discount = -Math.round(prem1 * fleet_dis, 0);
+            let ncb_discount = -Math.round((prem1 + fleet_discount) * ncb_dis, 0);
+            let direct_discount = -Math.round((prem1 + fleet_discount + ncb_discount + base_av5) * direct_dis, 0);
+            let cctv_discount = -Math.round((prem1 + fleet_discount + ncb_discount + direct_discount + base_av5) * cctv_dis, 0);
+            let app_discount = -Math.round((prem1 + fleet_discount + ncb_discount + direct_discount + cctv_discount + base_av5) * app_dis, 0);
+            return [(prem1 + fleet_discount + ncb_discount + direct_discount + cctv_discount + app_discount + base_av5) * coverage_day,
+                    fleet_discount, ncb_discount, direct_discount, cctv_discount, app_discount];
+        }
+
+        function backSolve(targetPremium, rate, od_dd, tp_dd, baseAv5, pa_driv_max_rate, pa_pasg_max_rate, bb_max_rate, med_max_rate, pa_si, me_si, base_min, base_max, discount_fleet = 0, discount_ncb = 0, discount_cctv = 0, discount_app = 0, discount_direct = 0, coverage_day = 365) {
+            const min_premium = fw_rating_calculation(Math.round(base_min * rate, 0) + 4, baseAv5, od_dd + tp_dd, discount_fleet, discount_ncb, discount_cctv, discount_app, discount_direct, coverage_day)[0];
+            const max_premium = fw_rating_calculation(Math.round(base_max * rate, 0) + pa_driv_max_rate + pa_pasg_max_rate + med_max_rate + bb_max_rate, baseAv5, od_dd + tp_dd, discount_fleet, discount_ncb, discount_cctv, discount_app, discount_direct, coverage_day)[0];
+
+            if (targetPremium < min_premium) {
+                return {
+                    message: 'Target Premium is less than Minimum Premium',
