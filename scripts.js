@@ -456,7 +456,7 @@ function addNewRow() {
                 status: 'Failed',
                 min_premium: min_premium,
                 max_premium: max_premium,
-                target_premium: targetPremium.toFixed(2)
+                target_premium: targetPremium
             };
         } else if (targetPremium > max_premium) {
             return {
@@ -464,7 +464,7 @@ function addNewRow() {
                 status: 'Failed',
                 min_premium: min_premium,
                 max_premium: max_premium,
-                target_premium: targetPremium.toFixed(2)
+                target_premium: targetPremium
             };
         } else if (targetPremium === 0) {
             return {
@@ -472,7 +472,7 @@ function addNewRow() {
                 status: 'Failed',
                 min_premium: min_premium,
                 max_premium: max_premium,
-                target_premium: targetPremium.toFixed(2)
+                target_premium: targetPremium
             }
         }
 
@@ -508,7 +508,7 @@ function addNewRow() {
                                     status: 'Failed',
                                     min_premium: min_premium,
                                     max_premium: max_premium,
-                                    target_premium: targetPremium.toFixed(2)
+                                    target_premium: targetPremium
                                 };
                             } else {
                                 base = Math.round(base + (diff / rate), 2);
