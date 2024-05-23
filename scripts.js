@@ -497,17 +497,6 @@ function addNewRow() {
             if (loopCounter > 1000) {
                 break;
             }
-            // console.log({
-            //     loopCounter: loopCounter,
-            //     base: base,
-            //     pa_driv_premium: pa_driv_premium,
-            //     pa_pasg_premium: pa_pasg_premium,
-            //     med_premium: med_premium,
-            //     bb_premium: bb_premium,
-            //     diff: diff,
-            //     targetPremium: targetPremium,
-            //     calcFw: calcFw,
-            // })
 
             if (pa_driv_premium === pa_driv_max_rate) {
                 if (pa_pasg_premium === pa_pasg_max_rate) {
