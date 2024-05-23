@@ -2,189 +2,90 @@
 <html>
 <head>
     <title>FW Rating Calculation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>FW Rating Calculation</h1>
-        <div class="form-container">
-            <div>
-                <label for="vehicleId">Vehicle ID:</label>
-                <input type="text" id="vehicleId">
-            </div>
-            <div>
-                <label for="vehicleName">Vehicle Name:</label>
-                <input type="text" id="vehicleName">
-            </div>
-            <div>
-                <label for="make">Make:</label>
-                <input type="text" id="make">
-            </div>
-            <div>
-                <label for="model">Model:</label>
-                <input type="text" id="model">
-            </div>
-            <div>
-                <label for="registrationYear">Registration Year:</label>
-                <input type="number" id="registrationYear">
-            </div>
-            <div>
-                <label for="policyEffectiveYear">Policy Effective Year:</label>
-                <input type="number" id="policyEffectiveYear">
-            </div>
-            <div>
-                <label for="oicCode">OIC Code:</label>
-                <select id="oicCode">
-                    <option value="110">110</option>
-                    <option value="110E">110E</option>
-                    <option value="120">120</option>
-                    <option value="120E">120E</option>
-                    <option value="210">210</option>
-                    <option value="210E">210E</option>
-                    <option value="320">320</option>
-                    <option value="320E">320E</option>
-                </select>
-            </div>
-            <div>
-                <label for="product">Product:</label>
-                <select id="product">
-                    <option value="AV1">AV1</option>
-                    <option value="AV2+">AV2+</option>
-                    <option value="AV3+">AV3+</option>
-                    <option value="AV2">AV2</option>
-                    <option value="AV3">AV3</option>
-                </select>
-            </div>
-            <div>
-                <label for="od">OD:</label>
-                <input type="number" id="od">
-            </div>
-            <div>
-                <label for="ft">FT:</label>
-                <input type="number" id="ft">
-            </div>
-            <div>
-                <label for="tpbiPerson">TPBI per Person:</label>
-                <input type="number" id="tpbiPerson">
-            </div>
-            <div>
-                <label for="tpbiAccident">TPBI per Accident:</label>
-                <input type="number" id="tpbiAccident">
-            </div>
-            <div>
-                <label for="tppdAccident">TPPD per Accident:</label>
-                <input type="number" id="tppdAccident">
-            </div>
-            <div>
-                <label for="paDriver">PA for Driver:</label>
-                <input type="number" id="paDriver">
-            </div>
-            <div>
-                <label for="paPassenger">PA for Passenger:</label>
-                <input type="number" id="paPassenger">
-            </div>
-            <div>
-                <label for="medicalCoverage">Medical Coverage:</label>
-                <input type="number" id="medicalCoverage">
-            </div>
-            <div>
-                <label for="bailbond">Bailbond:</label>
-                <input type="number" id="bailbond">
-            </div>
-            <div>
-                <label for="discountFleet">Discount Fleet:</label>
-                <input type="number" id="discountFleet" value="0">
-            </div>
-            <div>
-                <label for="discountNcb">Discount NCB:</label>
-                <input type="number" id="discountNcb" value="0">
-            </div>
-            <div>
-                <label for="discountDirect">Discount Direct:</label>
-                <input type="number" id="discountDirect" value="0">
-            </div>
-            <div>
-                <label for="discountCctv">Discount CCTV:</label>
-                <input type="number" id="discountCctv" value="0">
-            </div>
-            <div>
-                <label for="discountApp">Discount Application:</label>
-                <input type="number" id="discountApp" value="0">
-            </div>
-            <div>
-                <label for="preferredPremium">Preferred Premium:</label>
-                <input type="number" id="preferredPremium">
-            </div>
-            <div style="grid-column: span 4; text-align: center;">
-                <input type="button" value="Calculate" onclick="calculate()">
-            </div>
-        </div>
-
-        <h2>Result</h2>
-        <pre id="result"></pre>
-
-        <input type="button" value="Add Record" onclick="addRecord()">
-
-        <h2>Records</h2>
-        <div class="table-container">
-            <table>
-                <thead>
+    <div class="mx-4 my-5">
+        <h1 class="mb-4">Thailand OIC Tariff</h1>
+        <!-- Adding Contraint Configuration for calculation methodoly such as rounding rule -->
+        <div class="form-row">
+        <button id="addRowButton" class="btn btn-primary mb-3">+ Add New Record</button>
+        <button id="exportButton" class="btn btn-success mb-3">Export to Excel</button>
+        <div class="table-responsive">
+            <table id="inputTable" class="table table-bordered table-striped">
+                <thead class="thead">
                     <tr>
-                        <th>Vehicle No.</th>
-                        <th>Vehicle Name</th>
-                        <th>Make</th>
-                        <th>Model</th>
-                        <th>Effective Date</th>
-                        <th>Expiry Date</th>
-                        <th>Garage</th>
+                        <th>Actions</th>
+                        <th>Unique ID</th>
+                        <th>Name/Chassis</th>
+                        <th>Vehicle Code</th>
+                        <th>Vehicle Make</th>
+                        <th>Vehicle Model</th>
+                        <th>Vehicle Group</th>
                         <th>Seat</th>
-                        <th class="sticky">Plate No.</th>
-                        <th>Sum insured (OD)</th>
-                        <th>OIC Code</th>
+                        <th>Vehicle Capacity</th>
                         <th>Vehicle Registration Year</th>
-                        <th>Capacity</th>
-                        <th>Coverage Type</th>
-                        <th>Name/Unnamed</th>
-                        <th>TPBI per Person</th>
-                        <th>TPBI per Accident</th>
-                        <th>TPPD Per Accident</th>
-                        <th>Coverage Day</th>
+                        <th>Policy Effective Date</th>
+                        <th>Policy Expiry Date</th>
+                        <th>Named/Unnamed</th>
+                        <th>Driver Birth Date</th>
+                        <th>Driver Level (for EV)</th>
+                        <th>Product Coverages</th>
                         <th>Equipment</th>
+                        <th>OD Sum Insured</th>
+                        <th>FT Sum Insured</th>
+                        <th>TPBI per Person</th>
+                        <th>TPBI per Event</th>
+                        <th>TPPD per Event</th>
+                        <th>Own Damange Deduct</th>
+                        <th>Third Party Deduct</th>
                         <th>PA for Driver</th>
                         <th>PA for Passenger</th>
                         <th>Medical Expense</th>
-                        <th>BailBond</th>
-                        <th>OIC Car Group</th>
+                        <th>Bailbond</th>
                         <th>Fleet Discount</th>
-                        <th>NCB Discount</th>
+                        <th>NCB</th>
                         <th>Direct Discount</th>
                         <th>CCTV Discount</th>
                         <th>Application Discount</th>
-                        <th>Premium</th>
-                        <th>Stamp</th>
-                        <th>VAT</th>
-                        <th>Gross Premium</th>
+                        <th>Desired Premium (less Stamp and VAT)</th>
+                        <th>Message</th>
+                        <th>Status</th>
+                        <th>Minimum Possible</th>
+                        <th>Maximum Possible</th>
+                        <th>Rate</th>
+                        <th>Base Premium</th>
                         <th>Basic Premium</th>
-                        <th>Basic AV5 Premium</th>
+                        <th>Plus Premium</th>
                         <th>PA Driver Premium</th>
                         <th>PA Passenger Premium</th>
                         <th>Medical Expense Premium</th>
                         <th>Bailbond Premium</th>
-                        <th>OD DD</th>
-                        <th>TP DD</th>
                         <th>Fleet Discount Amount</th>
                         <th>NCB Discount Amount</th>
                         <th>Direct Discount Amount</th>
                         <th>CCTV Discount Amount</th>
                         <th>Application Discount Amount</th>
+                        <th>Net Premium</th>
+                        <th>Stamp</th>
+                        <th>VAT</th>
+                        <th>Gross Premium</th>
                     </tr>
                 </thead>
-                <tbody id="recordTable">
-                    <!-- Records will be added here -->
+                <tbody>
+                    <!-- Rows will be dynamically added here -->
                 </tbody>
             </table>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="tariffData.js"></script>
+    <script src="additionalTariff.js"></script>
+    <script src="coverageDays.js"></script>
     <script src="scripts.js"></script>
 </body>
 </html>
