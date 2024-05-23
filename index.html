@@ -4,6 +4,7 @@
     <title>FW Rating Calculation</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
@@ -11,8 +12,8 @@
         <h1 class="mb-4">Thailand OIC Tariff</h1>
         <!-- Adding Contraint Configuration for calculation methodoly such as rounding rule -->
         <div class="form-row">
-        <button id="addRowButton" class="btn btn-primary mb-3">+ Add New Record</button>
-        <button id="exportButton" class="btn btn-success mb-3">Export to Excel</button>
+        <button id="addRowButton" class="btn btn-primary mb-3 mr-3">+ Add New Record</button>
+        <button id="exportButton" class="btn btn-success mb-3" onclick="exportTableToExcel('inputTable', 'Export_from_web.xlsx')">Export to Excel</button>
         <div class="table-responsive">
             <table id="inputTable" class="table table-bordered table-striped">
                 <thead class="thead">
@@ -87,5 +88,13 @@
     <script src="additionalTariff.js"></script>
     <script src="coverageDays.js"></script>
     <script src="scripts.js"></script>
+    <script>
+        function exportTableToExcel(tableID, filename = ''){
+            const table = document.getElementById(tableID);
+            const wb = XLSX.utils.table_to_book(table);
+            XLSX.writeFile(wb, filename);
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 </body>
 </html>

@@ -16,121 +16,149 @@ document.addEventListener("DOMContentLoaded", function() {
             item.RATE_CRITERIA === 'SUM INSURED' && 
             item.Tariff_type === tariffType).map(item => item.RATE_NAME))];
     }
-    function addNewRow() {
-        const newRow = document.createElement('tr');
-        
-        const actionsTd = document.createElement('td');
-        actionsTd.className = 'actions';
-        const deleteButton = document.createElement('button');
-        deleteButton.className = 'btn btn-danger btn-sm';
-        deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
-        deleteButton.onclick = () => newRow.remove();
-        actionsTd.appendChild(deleteButton);
-        newRow.appendChild(actionsTd);
+    
+function addNewRow() {
+    const newRow = document.createElement('tr');
+    
+    const actionsTd = document.createElement('td');
+    actionsTd.className = 'actions';
+    const deleteButton = document.createElement('button');
+    deleteButton.className = 'btn btn-danger btn-sm';
+    deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+    deleteButton.onclick = () => newRow.remove();
+    actionsTd.appendChild(deleteButton);
+    newRow.appendChild(actionsTd);
 
-        const fields = [
-            { name: 'uniqueId', id: 'uniqueId_' + uniqueIdCounter, type: 'text', value: uniqueIdCounter++, readonly: true },
-            { name: 'nameChassis', id: 'nameChassis_' + uniqueIdCounter, type: 'text' },
-            { name: 'vehicleCode', id: 'vehicleCode_' + uniqueIdCounter, type: 'select', options: ['','110', '110E', '120', '120E', '210', '210E', '220', '220E', '230', '230E', '320', '320E', '327', '327E', '340', '340E', '347', '347E', '420', '420E', '520', '540', '610', '610E', '620', '620E', '630', '630E', '730', '730E', '801', '801E', '802', '802E', '803', '803E', '804', '804E', '805', '805E', 'E11', 'E12'] },
-            { name: 'vehicleMake', id: 'vehicleMake_' + uniqueIdCounter, type: 'text' },
-            { name: 'vehicleModel', id: 'vehicleModel_' + uniqueIdCounter, type: 'text' },
-            { name: 'vehicleGroup', id: 'vehicleGroup_' + uniqueIdCounter, type: 'select', options: ['1','2','3','4','5'] },
-            { name: 'seat', id: 'seat_' + uniqueIdCounter, type: 'number' },
-            { name: 'vehicleCapacity', id: 'vehicleCapacity_' + uniqueIdCounter, type: 'select', options: [] }, // Initially empty
-            { name: 'vehicleRegistrationYear', id: 'vehicleRegistrationYear_' + uniqueIdCounter, type: 'number' },
-            { name: 'policyEffectiveDate', id: 'policyEffectiveDate_' + uniqueIdCounter, type: 'date' },
-            { name: 'policyExpiryDate', id: 'policyExpiryDate_' + uniqueIdCounter, type: 'date' },
-            { name: 'namedUnnamed', id: 'namedUnnamed_' + uniqueIdCounter, type: 'select', options: ['Named', 'Unnamed'] },
-            { name: 'driverBirthDate', id: 'driverBirthDate_' + uniqueIdCounter, type: 'date', disableCondition: 'namedUnnamed_' + uniqueIdCounter, disableValue: 'Unnamed' },
-            { name: 'driverLevel', id: 'driverLevel_' + uniqueIdCounter, type: 'select', options: ['1','2','3','4','5']},
-            { name: 'productCoverages', id: 'productCoverages_' + uniqueIdCounter, type: 'select', options: ['Comprehensive', 'FT', 'Third party only', '2+', '3+'] },
-            { name: 'eqipment', id: 'eqipment_' + uniqueIdCounter, type: 'select', options: ['Y', 'N'] },
-            { name: 'odSumInsured', id: 'odSumInsured_' + uniqueIdCounter, type: 'number' },
-            { name: 'ftSumInsured', id: 'ftSumInsured_' + uniqueIdCounter, type: 'number' },
-            { name: 'tpbiPerPerson', id: 'tpbiPerPerson_' + uniqueIdCounter, type: 'select', options: ['500000', '600000', '700000', '800000', '900000', '1000000', '1250000', '1500000', '2000000', '2500000', '3000000', 'Unlimited'] },
-            { name: 'tpbiPerEvent', id: 'tpbiPerEvent_' + uniqueIdCounter, type: 'select', options: ['10000000', '20000000', 'Unlimited'] },
-            { name: 'tppdPerEvent', id: 'tppdPerEvent_' + uniqueIdCounter, type: 'select', options: ['200000', '400000', '600000', '800000', '1000000', '1500000', '2000000', '2500000', '3000000', '3500000', '4000000', '4500000', '5000000', '6000000', '7000000', '8000000', '9000000', '10000000', 'Unlimited'] },
-            { name: 'odDD', id: 'odDD_' + uniqueIdCounter, type: 'number' },
-            { name: 'tpDD', id: 'tpDD_' + uniqueIdCounter, type: 'number' },
-            { name: 'paForDriver', id: 'paForDriver_' + uniqueIdCounter, type: 'number' },
-            { name: 'paForPassenger', id: 'paForPassenger_' + uniqueIdCounter, type: 'number' },
-            { name: 'medicalExpense', id: 'medicalExpense_' + uniqueIdCounter, type: 'number' },
-            { name: 'bailbond', id: 'bailbond_' + uniqueIdCounter, type: 'number' },
-            { name: 'fleetDiscount', id: 'fleetDiscount_' + uniqueIdCounter, type: 'number' },
-            { name: 'ncb', id: 'ncb_' + uniqueIdCounter, type: 'number' },
-            { name: 'directDiscount', id: 'directDiscount_' + uniqueIdCounter, type: 'number' },
-            { name: 'cctvDiscount', id: 'cctvDiscount_' + uniqueIdCounter, type: 'number' },
-            { name: 'applicationDiscount', id: 'applicationDiscount_' + uniqueIdCounter, type: 'number' },
-            { name: 'targetPremium', id: 'targetPremium_' + uniqueIdCounter, type: 'number'}
-        ];
+    const today = new Date().toISOString().split('T')[0];
+    const nextYear = new Date();
+    nextYear.setFullYear(nextYear.getFullYear() + 1);
+    const nextYearDate = nextYear.toISOString().split('T')[0];
 
-        fields.forEach(field => {
-            const td = document.createElement('td');
-            let input;
-            if (field.type === 'select') {
-                input = document.createElement('select');
-                input.id = field.id;
-                input.className = 'form-control'; // Add Bootstrap class
-                field.options.forEach(option => {
-                    const opt = document.createElement('option');
-                    opt.value = option;
-                    opt.textContent = option;
-                    input.appendChild(opt);
-                });
-            } else {
-                input = document.createElement('input');
-                input.type = field.type;
-                input.id = field.id;
-                input.className = 'form-control'; // Add Bootstrap class
-                if (field.readonly) input.readOnly = true;
-                if (field.value !== undefined) input.value = field.value;
-            }
-            input.name = field.name;
-            if (field.disableCondition) {
-                const conditionField = document.getElementById(field.disableCondition);
-                if (conditionField) {
-                    input.disabled = conditionField.value === field.disableValue;
-                    conditionField.addEventListener('change', (e) => {
-                        input.disabled = e.target.value === field.disableValue;
-                    });
-                }
-            }
-            input.oninput = calculateRow;
-            td.appendChild(input);
-            newRow.appendChild(td);
-            // Add event listener for vehicle code to update vehicle capacity options
-            // if (field.id === 'vehicleCode_' + uniqueIdCounter) {
-            //     input.addEventListener('change', (e) => {
-            //         const vehicleCapacitySelect = document.getElementById('vehicleCapacity_' + uniqueIdCounter);
-            //         updateCapacityOptions(vehicleCapacitySelect, e.target.value);
-            //     });
-            // }
-        });
+    const fields = [
+        { name: 'uniqueId', id: 'uniqueId_' + uniqueIdCounter, type: 'text', value: uniqueIdCounter++, readonly: true },
+        { name: 'nameChassis', id: 'nameChassis_' + uniqueIdCounter, type: 'text' },
+        { name: 'vehicleCode', id: 'vehicleCode_' + uniqueIdCounter, type: 'select', options: ['','110', '110E', '120', '120E', '210', '210E', '220', '220E', '230', '230E', '320', '320E', '327', '327E', '340', '340E', '347', '347E', '420', '420E', '520', '540', '610', '610E', '620', '620E', '630', '630E', '730', '730E', '801', '801E', '802', '802E', '803', '803E', '804', '804E', '805', '805E', 'E11', 'E12'] },
+        { name: 'vehicleMake', id: 'vehicleMake_' + uniqueIdCounter, type: 'text' },
+        { name: 'vehicleModel', id: 'vehicleModel_' + uniqueIdCounter, type: 'text' },
+        { name: 'vehicleGroup', id: 'vehicleGroup_' + uniqueIdCounter, type: 'select', options: ['1','2','3','4','5'] },
+        { name: 'seat', id: 'seat_' + uniqueIdCounter, type: 'number' },
+        { name: 'vehicleCapacity', id: 'vehicleCapacity_' + uniqueIdCounter, type: 'select', options: [] }, // Initially empty
+        { name: 'vehicleRegistrationYear', id: 'vehicleRegistrationYear_' + uniqueIdCounter, type: 'number' },
+        { name: 'policyEffectiveDate', id: 'policyEffectiveDate_' + uniqueIdCounter, type: 'date', value: today },
+        { name: 'policyExpiryDate', id: 'policyExpiryDate_' + uniqueIdCounter, type: 'date', value: nextYearDate },
+        { name: 'namedUnnamed', id: 'namedUnnamed_' + uniqueIdCounter, type: 'select', options: ['Named', 'Unnamed'] },
+        { name: 'driverBirthDate', id: 'driverBirthDate_' + uniqueIdCounter, type: 'date', disableCondition: 'namedUnnamed_' + uniqueIdCounter, disableValue: 'Unnamed' },
+        { name: 'driverLevel', id: 'driverLevel_' + uniqueIdCounter, type: 'select', options: ['1','2','3','4','5']},
+        { name: 'productCoverages', id: 'productCoverages_' + uniqueIdCounter, type: 'select', options: ['Comprehensive', 'FT', 'Third party only', '2+', '3+'] },
+        { name: 'eqipment', id: 'eqipment_' + uniqueIdCounter, type: 'select', options: ['N', 'Y'] },
+        { name: 'odSumInsured', id: 'odSumInsured_' + uniqueIdCounter, type: 'number' },
+        { name: 'ftSumInsured', id: 'ftSumInsured_' + uniqueIdCounter, type: 'number' },
+        { name: 'tpbiPerPerson', id: 'tpbiPerPerson_' + uniqueIdCounter, type: 'select', options: ['500000', '600000', '700000', '800000', '900000', '1000000', '1250000', '1500000', '2000000', '2500000', '3000000', 'Unlimited'] },
+        { name: 'tpbiPerEvent', id: 'tpbiPerEvent_' + uniqueIdCounter, type: 'select', options: ['10000000', '20000000', 'Unlimited'] },
+        { name: 'tppdPerEvent', id: 'tppdPerEvent_' + uniqueIdCounter, type: 'select', options: ['200000', '400000', '600000', '800000', '1000000', '1500000', '2000000', '2500000', '3000000', '3500000', '4000000', '4500000', '5000000', '6000000', '7000000', '8000000', '9000000', '10000000', 'Unlimited'] },
+        { name: 'odDD', id: 'odDD_' + uniqueIdCounter, type: 'number' },
+        { name: 'tpDD', id: 'tpDD_' + uniqueIdCounter, type: 'number' },
+        { name: 'paForDriver', id: 'paForDriver_' + uniqueIdCounter, type: 'number' },
+        { name: 'paForPassenger', id: 'paForPassenger_' + uniqueIdCounter, type: 'number' },
+        { name: 'medicalExpense', id: 'medicalExpense_' + uniqueIdCounter, type: 'number' },
+        { name: 'bailbond', id: 'bailbond_' + uniqueIdCounter, type: 'number' },
+        { name: 'fleetDiscount', id: 'fleetDiscount_' + uniqueIdCounter, type: 'number' },
+        { name: 'ncb', id: 'ncb_' + uniqueIdCounter, type: 'number' },
+        { name: 'directDiscount', id: 'directDiscount_' + uniqueIdCounter, type: 'number' },
+        { name: 'cctvDiscount', id: 'cctvDiscount_' + uniqueIdCounter, type: 'number' },
+        { name: 'applicationDiscount', id: 'applicationDiscount_' + uniqueIdCounter, type: 'number' },
+        { name: 'targetPremium', id: 'targetPremium_' + uniqueIdCounter, type: 'number'}
+    ];
 
-
-        const resultFields = ['message','status','min_premium','max_premium','rate',
-            'base', 'basic_premium', 'base_av5', 'pa_driv', 'pa_pasg', 'med', 'bb',
-            'discount_fleet', 'discount_ncb', 'discount_direct', 'discount_cctv', 'discount_app',
-            'net_premium', 'new_stamp', 'new_vat', 'new_gross_premium'
-        ];
-
-        resultFields.forEach(field => {
-            const td = document.createElement('td');
-            td.className = field;
-            newRow.appendChild(td);
-        });
-
-        inputTable.appendChild(newRow);
-        // handle change of OIC Code and show the Capacity
-        document.querySelectorAll('[id^="vehicleCode_"]').forEach((input) => {
-            input.addEventListener('change', (e) => {
-                const idParts = input.id.split('_');
-                const rowId = idParts[1];
-                const vehicleCapacitySelect = document.getElementById('vehicleCapacity_' + rowId);
-                updateCapacityOptions(vehicleCapacitySelect, e.target.value);
+    fields.forEach(field => {
+        const td = document.createElement('td');
+        let input;
+        if (field.type === 'select') {
+            input = document.createElement('select');
+            input.id = field.id;
+            input.className = 'form-control'; // Add Bootstrap class
+            field.options.forEach(option => {
+                const opt = document.createElement('option');
+                opt.value = option;
+                opt.textContent = option;
+                input.appendChild(opt);
             });
+        } else {
+            input = document.createElement('input');
+            input.type = field.type;
+            input.id = field.id;
+            input.className = 'form-control'; // Add Bootstrap class
+            if (field.readonly) input.readOnly = true;
+            if (field.value !== undefined) input.value = field.value;
+        }
+        input.name = field.name;
+        if (field.disableCondition) {
+            const conditionField = document.getElementById(field.disableCondition);
+            if (conditionField) {
+                input.disabled = conditionField.value === field.disableValue;
+                conditionField.addEventListener('change', (e) => {
+                    input.disabled = e.target.value === field.disableValue;
+                });
+            }
+        }
+        input.oninput = calculateRow;
+        td.appendChild(input);
+        newRow.appendChild(td);
+    });
+
+    const resultFields = ['message','status','min_premium','max_premium','rate',
+        'base', 'basic_premium', 'base_av5', 'pa_driv', 'pa_pasg', 'med', 'bb',
+        'discount_fleet', 'discount_ncb', 'discount_direct', 'discount_cctv', 'discount_app',
+        'net_premium', 'new_stamp', 'new_vat', 'new_gross_premium'
+    ];
+
+    resultFields.forEach(field => {
+        const td = document.createElement('td');
+        td.className = field;
+        newRow.appendChild(td);
+    });
+
+    inputTable.appendChild(newRow);
+
+    // Handle change of OIC Code and show the Capacity
+    document.querySelectorAll('[id^="vehicleCode_"]').forEach((input) => {
+        input.addEventListener('change', (e) => {
+            const idParts = input.id.split('_');
+            const rowId = idParts[1];
+            const vehicleCapacitySelect = document.getElementById('vehicleCapacity_' + rowId);
+            updateCapacityOptions(vehicleCapacitySelect, e.target.value);
+
+            // Disable driverLevel if vehicleCode doesn't start with 'E'
+            const driverLevel = document.getElementById('driverLevel_' + rowId);
+            if (driverLevel) {
+                driverLevel.disabled = !e.target.value.startsWith('E');
+            }
         });
+    });
+
+    // Handle change of namedUnnamed and disable driverBirthDate
+    document.querySelectorAll('[id^="namedUnnamed_"]').forEach((input) => {
+        input.addEventListener('change', (e) => {
+            const idParts = input.id.split('_');
+            const rowId = idParts[1];
+            const driverBirthDate = document.getElementById('driverBirthDate_' + rowId);
+            if (driverBirthDate) {
+                driverBirthDate.disabled = e.target.value === 'Unnamed';
+            }
+        });
+    });
+
+    // Initialize the disable logic for the newly created row
+    const vehicleCodeInput = document.getElementById('vehicleCode_' + (uniqueIdCounter));
+    if (vehicleCodeInput) {
+        vehicleCodeInput.dispatchEvent(new Event('change'));    
     }
+
+    const namedUnnamedInput = document.getElementById('namedUnnamed_' + (uniqueIdCounter));
+    if (namedUnnamedInput) {
+        namedUnnamedInput.dispatchEvent(new Event('change'));
+    }
+}
 
     // Function to update capacity options based on motor code
     function updateCapacityOptions(selectElement, motorCodeGroup) {
@@ -418,7 +446,7 @@ document.addEventListener("DOMContentLoaded", function() {
         ];
     }
 
-    function backSolve(targetPremium, rate, od_dd, tp_dd, baseAv5, pa_driv_max_rate, pa_pasg_max_rate, bb_max_rate, med_max_rate, pa_si, me_si, base_min, base_max, discount_fleet = 0, discount_ncb = 0, discount_cctv = 0, discount_app = 0, discount_direct = 0, coverage_day = 365) {
+    function backSolve(targetPremium=0, rate, od_dd, tp_dd, baseAv5, pa_driv_max_rate, pa_pasg_max_rate, bb_max_rate, med_max_rate, pa_si, me_si, base_min, base_max, discount_fleet = 0, discount_ncb = 0, discount_cctv = 0, discount_app = 0, discount_direct = 0, coverage_day = 365) {
         const min_premium = fw_rating_calculation(parseFloat(Math.round(base_min * rate, 0)) + 4.0, baseAv5, od_dd + tp_dd, discount_fleet, discount_ncb, discount_cctv, discount_app, discount_direct, coverage_day)[0];
         const max_premium = fw_rating_calculation(parseFloat(Math.round(base_max * rate, 0)) + pa_driv_max_rate + pa_pasg_max_rate + med_max_rate + bb_max_rate, baseAv5, od_dd + tp_dd, discount_fleet, discount_ncb, discount_cctv, discount_app, discount_direct, coverage_day)[0];
 
@@ -438,6 +466,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 max_premium: max_premium,
                 target_premium: targetPremium.toFixed(2)
             };
+        } else if (targetPremium === 0) {
+            return {
+                message: 'Target Premium is 0',
+                status: 'Failed',
+                min_premium: min_premium,
+                max_premium: max_premium,
+                target_premium: targetPremium.toFixed(2)
+            }
         }
 
         let pa_driv_premium = pa_si * 0.000103222487317189;
