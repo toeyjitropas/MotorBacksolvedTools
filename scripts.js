@@ -99,13 +99,14 @@ document.addEventListener("DOMContentLoaded", function() {
             td.appendChild(input);
             newRow.appendChild(td);
             // Add event listener for vehicle code to update vehicle capacity options
-            if (field.id === 'vehicleCode_' + uniqueIdCounter) {
-                input.addEventListener('change', (e) => {
-                    const vehicleCapacitySelect = document.getElementById('vehicleCapacity_' + uniqueIdCounter);
-                    updateCapacityOptions(vehicleCapacitySelect, e.target.value);
-                });
-            }
+            // if (field.id === 'vehicleCode_' + uniqueIdCounter) {
+            //     input.addEventListener('change', (e) => {
+            //         const vehicleCapacitySelect = document.getElementById('vehicleCapacity_' + uniqueIdCounter);
+            //         updateCapacityOptions(vehicleCapacitySelect, e.target.value);
+            //     });
+            // }
         });
+
 
         const resultFields = ['message','status','min_premium','max_premium','rate',
             'base', 'basic_premium', 'base_av5', 'pa_driv', 'pa_pasg', 'med', 'bb',
@@ -120,6 +121,15 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         inputTable.appendChild(newRow);
+        // handle change of OIC Code and show the Capacity
+        document.querySelectorAll('[id^="vehicleCode_"]').forEach((input) => {
+            input.addEventListener('change', (e) => {
+                const idParts = input.id.split('_');
+                const rowId = idParts[1];
+                const vehicleCapacitySelect = document.getElementById('vehicleCapacity_' + rowId);
+                updateCapacityOptions(vehicleCapacitySelect, e.target.value);
+            });
+        });
     }
 
     // Function to update capacity options based on motor code
@@ -132,7 +142,9 @@ document.addEventListener("DOMContentLoaded", function() {
             opt.textContent = option;
             selectElement.appendChild(opt);
         });
-}
+    }
+    
+            
 
     // Load the base tariff data
     // <script src="baseTariffData.js"></script> should be included in your HTML file
@@ -319,7 +331,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // console.log(inputs)
 
         values.rate = f_driver() * f_capacity * f_equipment() * f_tpbi_per_event * f_tpbi_per_person * f_tppd * f_veh_group() * f_veh_age() * f_si;
-        values.targetPremium = parseFloat(inputs[32].value);
+        values.targetPremium = parseFloat(inputs[32].value).toFixed(2);
         values.od_dd = parseFloat(od_dd());
         values.tp_dd = parseFloat(tp_dd());
         values.baseAv5 = parseFloat(av5Base());
@@ -539,5 +551,6 @@ document.addEventListener("DOMContentLoaded", function() {
             basic_premium_inCalc: basic_premium
         };
     }
+    
 });
 
