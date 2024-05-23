@@ -389,18 +389,18 @@ function addNewRow() {
         );
 
         // Checking Rate
-        console.log({
-            f_driver: f_driver(),
-            f_capacity: f_capacity,
-            f_equipment: f_equipment(),
-            f_tpbi_per_event: f_tpbi_per_event,
-            f_tpbi_per_person: f_tpbi_per_person,
-            f_tppd: f_tppd,
-            f_veh_group: f_veh_group(),
-            f_veh_age: f_veh_age(),
-            f_si: f_si,
-            rate: values.rate}
-        );
+        // console.log({
+        //     f_driver: f_driver(),
+        //     f_capacity: f_capacity,
+        //     f_equipment: f_equipment(),
+        //     f_tpbi_per_event: f_tpbi_per_event,
+        //     f_tpbi_per_person: f_tpbi_per_person,
+        //     f_tppd: f_tppd,
+        //     f_veh_group: f_veh_group(),
+        //     f_veh_age: f_veh_age(),
+        //     f_si: f_si,
+        //     rate: values.rate}
+        // );
 
         const resultFields = {
             message: result.message,
@@ -497,17 +497,17 @@ function addNewRow() {
             if (loopCounter > 1000) {
                 break;
             }
-            console.log({
-                loopCounter: loopCounter,
-                base: base,
-                pa_driv_premium: pa_driv_premium,
-                pa_pasg_premium: pa_pasg_premium,
-                med_premium: med_premium,
-                bb_premium: bb_premium,
-                diff: diff,
-                targetPremium: targetPremium,
-                calcFw: calcFw,
-            })
+            // console.log({
+            //     loopCounter: loopCounter,
+            //     base: base,
+            //     pa_driv_premium: pa_driv_premium,
+            //     pa_pasg_premium: pa_pasg_premium,
+            //     med_premium: med_premium,
+            //     bb_premium: bb_premium,
+            //     diff: diff,
+            //     targetPremium: targetPremium,
+            //     calcFw: calcFw,
+            // })
 
             if (pa_driv_premium === pa_driv_max_rate) {
                 if (pa_pasg_premium === pa_pasg_max_rate) {
@@ -579,7 +579,7 @@ function addNewRow() {
             discount_app_rate: discount_app.toFixed(2),
             discount_app: calcFw[5].toFixed(2),
             net_premium: calcFw[0],
-            target_premium: parseFloat(targetPremium).toFixed(2),
+            target_premium: parseFloat(targetPremium),
             new_stamp: parseFloat(Math.ceil(calcFw[0] * 0.004)).toFixed(2),
             new_vat: parseFloat(Math.round((calcFw[0] + Math.ceil(calcFw[0] * 0.004)) * 0.07, 2)).toFixed(2),
             new_gross_premium: parseFloat(Math.round(calcFw[0] + Math.ceil(calcFw[0] * 0.004) + Math.round((calcFw[0] + Math.ceil(calcFw[0] * 0.004)) * 0.07, 2), 2)).toFixed(2),
