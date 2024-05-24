@@ -52,7 +52,6 @@
                         <th>CCTV Discount</th>
                         <th>Application Discount</th>
                         <th>Desired Premium (less Stamp and VAT)</th>
-                        <th>Message</th>
                         <th>Status</th>
                         <th>Minimum Possible</th>
                         <th>Maximum Possible</th>
@@ -89,11 +88,28 @@
     <script src="coverageDays.js"></script>
     <script src="scripts.js"></script>
     <script>
-        function exportTableToExcel(tableID, filename = ''){
+        function exportTableToExcel(tableID, filename = '') {
             const table = document.getElementById(tableID);
-            const wb = XLSX.utils.table_to_book(table);
-            XLSX.writeFile(wb, filename);
+            const rows = Array.from(table.rows);
+            const data = rows.map(row => {
+                return Array.from(row.cells).map(cell => {
+                    if (cell.querySelector('select')) {
+                        return cell.querySelector('select').selectedOptions[0].textContent;
+                    } else if (cell.querySelector('input')) {
+                        return cell.querySelector('input').value;
+                    } else {
+                        return cell.textContent.trim();
+                    }
+                });
+            });
+        
+            const worksheet = XLSX.utils.aoa_to_sheet(data);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+        
+            XLSX.writeFile(workbook, filename || 'excel_data.xlsx');
         }
+            
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 </body>

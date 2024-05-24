@@ -106,7 +106,7 @@ function addNewRow() {
         newRow.appendChild(td);
     });
 
-    const resultFields = ['message','status','min_premium','max_premium','rate',
+    const resultFields = ['status','min_premium','max_premium','rate',
         'base', 'basic_premium', 'base_av5', 'pa_driv', 'pa_pasg', 'med', 'bb',
         'discount_fleet', 'discount_ncb', 'discount_direct', 'discount_cctv', 'discount_app',
         'net_premium', 'new_stamp', 'new_vat', 'new_gross_premium'
@@ -403,7 +403,6 @@ function addNewRow() {
         // );
 
         const resultFields = {
-            message: result.message,
             status: result.status,
             min_premium: result.min_premium,
             max_premium: result.max_premium,
@@ -542,6 +541,19 @@ function addNewRow() {
             loopCounter++;
         }
 
+        if (base < base_min || base > base_max) {
+            return {
+                message: 'Cannot Backsolved, No Base find',
+                status: 'Failed',
+                min_premium: min_premium,
+                max_premium: max_premium,
+                target_premium: targetPremium
+            };
+        };
+
+        let stamp = Math.ceil(calcFw[0] * 0.004).toFixed(2);
+        let vat = Math.round((calcFw[0] + Math.ceil(calcFw[0] * 0.004)) * 0.07, 2).toFixed(2);
+
         return {
             message: 'Atta boii! You did it!',
             status: 'Success',
@@ -569,9 +581,9 @@ function addNewRow() {
             discount_app: calcFw[5].toFixed(2),
             net_premium: calcFw[0],
             target_premium: parseFloat(targetPremium),
-            new_stamp: parseFloat(Math.ceil(calcFw[0] * 0.004)).toFixed(2),
-            new_vat: parseFloat(Math.round((calcFw[0] + Math.ceil(calcFw[0] * 0.004)) * 0.07, 2)).toFixed(2),
-            new_gross_premium: parseFloat(Math.round(calcFw[0] + Math.ceil(calcFw[0] * 0.004) + Math.round((calcFw[0] + Math.ceil(calcFw[0] * 0.004)) * 0.07, 2), 2)).toFixed(2),
+            new_stamp: stamp,
+            new_vat: vat,
+            new_gross_premium: (parseFloat(calcFw[0]) + parseFloat(stamp) + parseFloat(vat)).toFixed(2),
             loop_out: loopCounter,
             basic_premium_inCalc: basic_premium
         };
